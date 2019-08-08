@@ -2,11 +2,17 @@ package com.fakeworldmc.polarsurvival.init;
 
 import com.fakeworldmc.polarsurvival.client.render.color.WoolenSuitTinter;
 import com.fakeworldmc.polarsurvival.item.*;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = "polar_survival")
 public class Items {
@@ -31,7 +37,18 @@ public class Items {
 
     @SubscribeEvent
     public static void itemColors(ColorHandlerEvent.Item event) {
+
         event.getItemColors().registerItemColorHandler(WOOLEN_SUIT_TINTER, WOOLEN_HAT, SWEATER, WOOLEN_PANTS, SNOW_BOOTS);
-        //event.getItemColors().registerItemColorHandler((stack, tintIndex) -> tintIndex > 0 ? -1 : ((ItemArmor)stack.getItem()).getColor(stack), SWEATER);
+    }
+
+
+    public static final UUID WARMTH_MODIFIER = UUID.fromString("4035afc0-e605-465b-8469-30516a8e33ac");
+
+    public static final IAttribute WARMTH = new RangedAttribute((IAttribute)null, "polar_survival.warmth",
+            0d, -1000d, 1000d).setDescription("Warmth").setShouldWatch(true);
+
+    public static Double getAttributeWarmthAmount(Double baseAmount, ItemStack stack) {
+        Double amount = baseAmount + 0.05 * EnchantmentHelper.getEnchantmentLevel(Enchantments.ENCHANTMENT_WARMTH, stack);
+        return amount;
     }
 }
