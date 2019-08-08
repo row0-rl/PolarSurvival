@@ -1,0 +1,10 @@
+item.woolenHat.name=Woolen Hat
+item.sweater.name=Sweater
+item.woolenPants.name=Woolen Pants
+item.snowBoots.name=Snow Boots
+item.backpackFurnace.name=Backpack Furnace
+attribute.name.polar_survival.warmth=Warmth
+enchantment.warmth=Warmth
+death.attack.freeze=%1$s froze to death
+key.polarSurvival.openBackpackFurnaceGui=Open Backpack Furnace
+container.polarSurvival.backpackFurnace=Backpack Furnace

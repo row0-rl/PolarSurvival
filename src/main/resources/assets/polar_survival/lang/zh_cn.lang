@@ -1,0 +1,10 @@
+item.woolenHat.name=毛线帽
+item.sweater.name=羊毛衫
+item.woolenPants.name=羊毛裤
+item.snowBoots.name=雪地靴
+item.backpackFurnace.name=背包式熔炉
+attribute.name.polar_survival.warmth=保暖度
+enchantment.warmth=保暖
+death.attack.freeze=%1$s 冻死了
+key.polarSurvival.openBackpackFurnaceGui=打开背包式熔炉
+container.polarSurvival.backpackFurnace=背包式熔炉

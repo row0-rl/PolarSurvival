@@ -1,0 +1,16 @@
+[
+{
+  "modid": "polar_survival",
+  "name": "Polar Survival",
+  "description": "Polar Survival mod, made for Fakeworld.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Row0"],
+  "credits": "dont know what to type here",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
