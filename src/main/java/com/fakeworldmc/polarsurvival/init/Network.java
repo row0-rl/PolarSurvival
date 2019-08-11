@@ -1,7 +1,7 @@
 package com.fakeworldmc.polarsurvival.init;
 
 import com.fakeworldmc.polarsurvival.PolarSurvival;
-import com.fakeworldmc.polarsurvival.network.MessageEntityPlayer;
+import com.fakeworldmc.polarsurvival.network.MessageOpenGui;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -15,7 +15,7 @@ public class Network {
     private static int id = 0;
 
     public Network() {
-        registerMessage(MessageEntityPlayer.Handler.class, MessageEntityPlayer.class, Side.SERVER);
+        registerMessage(MessageOpenGui.Handler.class, MessageOpenGui.class, Side.SERVER);
     }
 
     private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(

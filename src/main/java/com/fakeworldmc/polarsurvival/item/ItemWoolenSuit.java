@@ -49,6 +49,11 @@ public class ItemWoolenSuit extends ItemArmor {
     }
 
     @Override
+    public int getItemBurnTime(ItemStack stack) {
+        return 100;
+    }
+
+    @Override
     public void setColor(ItemStack stack, int color) {
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 

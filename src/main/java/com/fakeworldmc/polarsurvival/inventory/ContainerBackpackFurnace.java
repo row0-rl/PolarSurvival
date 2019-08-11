@@ -15,16 +15,18 @@ public class ContainerBackpackFurnace extends Container {
 
     private SlotItemHandler fuelSlot = new SlotItemHandler(new ItemStackHandler(1), 0, 80, 34) {
         @Override
-        public boolean isItemValid(ItemStack itemStack) {
-            return itemStack != null && super.isItemValid(itemStack) &&
-                    (TileEntityFurnace.isItemFuel(itemStack) || itemStack.getItem() instanceof ItemWoolenSuit);
+        public boolean isItemValid(ItemStack stack) {
+            return stack != null && super.isItemValid(stack) && TileEntityFurnace.isItemFuel(stack);
         }
     };
 
     public ContainerBackpackFurnace(InventoryPlayer playerInventory) {
 
         super();
+        addSlots(playerInventory);
+    }
 
+    private void addSlots(InventoryPlayer playerInventory) {
         this.addSlotToContainer(fuelSlot);
 
         for (int i = 0; i < 3; ++i) {
@@ -36,7 +38,6 @@ public class ContainerBackpackFurnace extends Container {
         for (int k = 0; k < 9; ++k) {
             this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 124));
         }
-
     }
 
     /**
@@ -51,6 +52,13 @@ public class ContainerBackpackFurnace extends Container {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 
+        final int
+                FUEL = 0,
+                INV_START = 1,
+                INV_END = 27,
+                TOOL_START = 28,
+                TOOL_END = 36;
+
         Slot slot = inventorySlots.get(index);
 
         if (slot == null || !slot.getHasStack()) {
@@ -61,16 +69,16 @@ public class ContainerBackpackFurnace extends Container {
 
         boolean isMerged = false;
 
-        if (index == 0) {
-            isMerged = mergeItemStack(newStack, 1, 37, true);
+        if (index == FUEL) {
+            isMerged = mergeItemStack(newStack, INV_START, INV_END+1, true);
         }
-        else if (index < 28) {
-            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, 0, 1, false)
-                    || mergeItemStack(newStack, 28, 37, false);
+        else if (index <= INV_END) {
+            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, FUEL, FUEL+1, false)
+                    || mergeItemStack(newStack, TOOL_START, TOOL_END+1, false);
         }
-        else if (index < 37) {
-            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, 0, 1, false)
-                    || mergeItemStack(newStack, 1, 28, false);
+        else if (index <= TOOL_END) {
+            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, FUEL, FUEL+1, false)
+                    || mergeItemStack(newStack, INV_START, INV_END+1, false);
         }
 
         if (!isMerged) {
@@ -86,6 +94,13 @@ public class ContainerBackpackFurnace extends Container {
         slot.onTake(playerIn, newStack);
 
         return oldStack;
+    }
+
+    @Override
+    public void onContainerClosed(EntityPlayer playerIn) {
+
+        super.onContainerClosed(playerIn);
+
     }
 
 }
