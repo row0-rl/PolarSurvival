@@ -1,2 +1,2 @@
 # Polar Survival
- Polar Survival mod of Minecraft.
+ Polar Survival mod for Minecraft.
