@@ -41,14 +41,4 @@ public class Items {
         event.getItemColors().registerItemColorHandler(WOOLEN_SUIT_TINTER, WOOLEN_HAT, SWEATER, WOOLEN_PANTS, SNOW_BOOTS);
     }
 
-
-    public static final UUID WARMTH_MODIFIER = UUID.fromString("4035afc0-e605-465b-8469-30516a8e33ac");
-
-    public static final IAttribute WARMTH = new RangedAttribute((IAttribute)null, "polar_survival.warmth",
-            0d, -1000d, 1000d).setDescription("Warmth").setShouldWatch(true);
-
-    public static Double getAttributeWarmthAmount(Double baseAmount, ItemStack stack) {
-        Double amount = baseAmount + 0.05 * EnchantmentHelper.getEnchantmentLevel(Enchantments.ENCHANTMENT_WARMTH, stack);
-        return amount;
-    }
 }

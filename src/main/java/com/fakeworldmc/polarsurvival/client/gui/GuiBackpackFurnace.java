@@ -1,6 +1,7 @@
 package com.fakeworldmc.polarsurvival.client.gui;
 
 import com.fakeworldmc.polarsurvival.PolarSurvival;
+import com.fakeworldmc.polarsurvival.init.Keys;
 import com.fakeworldmc.polarsurvival.inventory.ContainerBackpackFurnace;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -10,6 +11,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.io.IOException;
+
+import static org.lwjgl.input.Keyboard.KEY_E;
+import static org.lwjgl.input.Keyboard.KEY_Z;
 
 @SideOnly(Side.CLIENT)
 public class GuiBackpackFurnace extends GuiContainer {
@@ -26,7 +32,17 @@ public class GuiBackpackFurnace extends GuiContainer {
     }
 
     @Override
+    public void keyTyped(char typedChar, int keyCode) throws IOException {
+
+        if (keyCode == Keys.openBackpackFurnace.getKeyCode()) {
+            this.mc.player.closeScreen();
+        }
+        super.keyTyped(typedChar, keyCode);
+    }
+
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

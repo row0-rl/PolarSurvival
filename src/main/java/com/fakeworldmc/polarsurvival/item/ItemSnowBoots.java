@@ -1,6 +1,6 @@
 package com.fakeworldmc.polarsurvival.item;
 
-import com.fakeworldmc.polarsurvival.init.Items;
+import com.fakeworldmc.polarsurvival.common.ItemModifier;
 import com.google.common.collect.Multimap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -21,8 +21,8 @@ public class ItemSnowBoots extends ItemWoolenSuit {
         Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
         if (slot == EntityEquipmentSlot.FEET) {
-            Double amount = Items.getAttributeWarmthAmount(0.24, stack);
-            multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+            Double amount = ItemModifier.getAttributeWarmthAmount(0.24, stack);
+            multimap.put(ItemModifier.WARMTH.getName(), new AttributeModifier(ItemModifier.WARMTH_MODIFIER,
                     "Tool Modifier", amount, 1));
         }
         return multimap;

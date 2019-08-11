@@ -1,9 +1,11 @@
 package com.fakeworldmc.polarsurvival.inventory;
 
 import com.fakeworldmc.polarsurvival.init.Items;
+import com.fakeworldmc.polarsurvival.item.ItemWoolenSuit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.items.ItemStackHandler;
@@ -13,8 +15,9 @@ public class ContainerBackpackFurnace extends Container {
 
     private SlotItemHandler fuelSlot = new SlotItemHandler(new ItemStackHandler(1), 0, 80, 34) {
         @Override
-        public boolean isItemValid(ItemStack stack) {
-            return stack != null && TileEntityFurnace.isItemFuel(stack) && super.isItemValid(stack);
+        public boolean isItemValid(ItemStack itemStack) {
+            return itemStack != null && super.isItemValid(itemStack) &&
+                    (TileEntityFurnace.isItemFuel(itemStack) || itemStack.getItem() instanceof ItemWoolenSuit);
         }
     };
 
@@ -36,6 +39,10 @@ public class ContainerBackpackFurnace extends Container {
 
     }
 
+    /**
+     * This method doesn't actually work, whether the player has a
+     * backpack furnace is checked when openGui() is called.
+     */
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.BACKPACK_FURNACE;
@@ -58,11 +65,11 @@ public class ContainerBackpackFurnace extends Container {
             isMerged = mergeItemStack(newStack, 1, 37, true);
         }
         else if (index < 28) {
-            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, 0, 0, false)
+            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, 0, 1, false)
                     || mergeItemStack(newStack, 28, 37, false);
         }
         else if (index < 37) {
-            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, 0, 0, false)
+            isMerged = !fuelSlot.getHasStack() && mergeItemStack(newStack, 0, 1, false)
                     || mergeItemStack(newStack, 1, 28, false);
         }
 
@@ -76,8 +83,7 @@ public class ContainerBackpackFurnace extends Container {
         else {
             slot.onSlotChanged();
         }
-
-        //slot.onPickupFromSlot(playerIn, newStack);
+        slot.onTake(playerIn, newStack);
 
         return oldStack;
     }

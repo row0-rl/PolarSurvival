@@ -2,6 +2,7 @@ package com.fakeworldmc.polarsurvival.common;
 
 import com.fakeworldmc.polarsurvival.init.Keys;
 import com.fakeworldmc.polarsurvival.init.Guis;
+import com.fakeworldmc.polarsurvival.init.Network;
 import com.fakeworldmc.polarsurvival.util.HeatLevel;
 import com.fakeworldmc.polarsurvival.init.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,6 +18,7 @@ public class CommonProxy {
         new HeatLevel();
         new Guis();
         new Keys();
+        new Network();
     }
 
     public void postInit(FMLPostInitializationEvent event)

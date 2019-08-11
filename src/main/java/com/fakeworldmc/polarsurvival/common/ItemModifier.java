@@ -1,8 +1,11 @@
 package com.fakeworldmc.polarsurvival.common;
 
-import com.fakeworldmc.polarsurvival.init.Items;
+import com.fakeworldmc.polarsurvival.init.Enchantments;
 import com.google.common.collect.Multimap;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -10,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = "polar_survival")
 public class ItemModifier {
@@ -21,8 +26,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = Items.getAttributeWarmthAmount(0.1, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -35,8 +40,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = Items.getAttributeWarmthAmount(0.16, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -49,8 +54,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = Items.getAttributeWarmthAmount(0.14, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -63,8 +68,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = Items.getAttributeWarmthAmount(0.08, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -78,8 +83,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = Items.getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -92,8 +97,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = Items.getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -106,8 +111,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = Items.getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -120,8 +125,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = Items.getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -135,8 +140,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = Items.getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -149,8 +154,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = Items.getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -163,8 +168,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = Items.getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -177,8 +182,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = Items.getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -192,8 +197,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = Items.getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -206,8 +211,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = Items.getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -220,8 +225,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = Items.getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -234,8 +239,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = Items.getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -249,8 +254,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = Items.getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -263,8 +268,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = Items.getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -277,8 +282,8 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = Items.getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
@@ -291,13 +296,23 @@ public class ItemModifier {
             Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
             if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = Items.getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(Items.WARMTH.getName(), new AttributeModifier(Items.WARMTH_MODIFIER,
+                Double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
                         "Tool Modifier", amount, 1));
             }
             return multimap;
         }
     };
+
+    public static final UUID WARMTH_MODIFIER = UUID.fromString("4035afc0-e605-465b-8469-30516a8e33ac");
+
+    public static final IAttribute WARMTH = new RangedAttribute((IAttribute)null, "polar_survival.warmth",
+            0d, -1000d, 1000d).setDescription("Warmth").setShouldWatch(true);
+
+    public static Double getAttributeWarmthAmount(Double baseAmount, ItemStack stack) {
+        Double amount = baseAmount + 0.05 * EnchantmentHelper.getEnchantmentLevel(Enchantments.ENCHANTMENT_WARMTH, stack);
+        return amount;
+    }
 
     @SubscribeEvent
     public static void reRegisterItems(RegistryEvent.Register<Item> event) {

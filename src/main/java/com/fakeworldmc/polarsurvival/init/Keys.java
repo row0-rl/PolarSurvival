@@ -1,13 +1,15 @@
 package com.fakeworldmc.polarsurvival.init;
 
 import com.fakeworldmc.polarsurvival.PolarSurvival;
+import com.fakeworldmc.polarsurvival.network.MessageEntityPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -32,11 +34,7 @@ public class Keys {
     public static void onKeyPressed(InputEvent.KeyInputEvent event) {
 
         if (openBackpackFurnace.isPressed()) {
-            EntityPlayer player = Minecraft.getMinecraft().player;
-            World world = Minecraft.getMinecraft().world;
-            BlockPos pos = player.getPosition();
-
-            player.openGui(PolarSurvival.instance, Guis.GUI_BACKPACK_FURNACE, world, pos.getX(), pos.getY(), pos.getZ());
+            Network.instance.sendToServer(new MessageEntityPlayer());
         }
     }
 
