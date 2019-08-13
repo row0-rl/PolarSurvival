@@ -6,7 +6,9 @@ import com.fakeworldmc.polarsurvival.inventory.ContainerBackpackFurnace;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,18 +16,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
 
-import static org.lwjgl.input.Keyboard.KEY_E;
-import static org.lwjgl.input.Keyboard.KEY_Z;
-
 @SideOnly(Side.CLIENT)
 public class GuiBackpackFurnace extends GuiContainer {
 
     private static final String TEXTURE_PATH = PolarSurvival.MODID + ":" + "textures/gui/container/gui_backpack_furnace.png";
     private static final ResourceLocation TEXTURE = new ResourceLocation(TEXTURE_PATH);
 
-    public GuiBackpackFurnace(InventoryPlayer playerInventory) {
+    public GuiBackpackFurnace(InventoryPlayer playerInventory, EntityPlayer playerIn) {
 
-        super(new ContainerBackpackFurnace(playerInventory));
+        super(new ContainerBackpackFurnace(playerInventory, playerIn));
 
         this.xSize = 176;
         this.ySize = 159;
@@ -66,6 +65,13 @@ public class GuiBackpackFurnace extends GuiContainer {
 
         this.fontRenderer.drawString(title, (this.xSize - this.fontRenderer.getStringWidth(title)) / 2, 6, 0x404040);
         this.fontRenderer.drawString(I18n.format("container.inventory"), 8, 54, 0x404040);
+
+        GlStateManager.color(1.0F, 1.0F, 1.0F);
+        this.mc.getTextureManager().bindTexture(TEXTURE);
+        ContainerBackpackFurnace containerBackpackFurnace = (ContainerBackpackFurnace) this.inventorySlots;
+        if (containerBackpackFurnace.fuelSlot.getStack().getItem() != Items.AIR) {
+            this.drawTexturedModalRect(80, 16, 176, 0, 15, 14);
+        }
 
     }
 }

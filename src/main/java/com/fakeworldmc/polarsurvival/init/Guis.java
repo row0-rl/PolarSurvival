@@ -17,22 +17,22 @@ public class Guis implements IGuiHandler
     }
 
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getServerGuiElement(int id, EntityPlayer playerIn, World worldIn, int x, int y, int z) {
 
-        switch (ID) {
+        switch (id) {
             case GUI_BACKPACK_FURNACE:
-                return new ContainerBackpackFurnace(player.inventory);
+                return new ContainerBackpackFurnace(playerIn.inventory, playerIn);
             default:
                 return null;
         }
     }
 
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getClientGuiElement(int id, EntityPlayer playerIn, World worldIn, int x, int y, int z) {
 
-        switch (ID) {
+        switch (id) {
             case GUI_BACKPACK_FURNACE:
-                return new GuiBackpackFurnace(player.inventory);
+                return new GuiBackpackFurnace(playerIn.inventory, playerIn);
             default:
                 return null;
         }

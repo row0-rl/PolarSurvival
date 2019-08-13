@@ -33,6 +33,7 @@ public class ItemWoolenSuit extends ItemArmor {
 
     @Override
     public int getColor(ItemStack stack) {
+
         NBTTagCompound nbttagcompound = stack.getTagCompound();
 
         if (nbttagcompound != null)
@@ -55,6 +56,7 @@ public class ItemWoolenSuit extends ItemArmor {
 
     @Override
     public void setColor(ItemStack stack, int color) {
+
             NBTTagCompound nbttagcompound = stack.getTagCompound();
 
             if (nbttagcompound == null) {
@@ -70,4 +72,5 @@ public class ItemWoolenSuit extends ItemArmor {
 
             nbttagcompound1.setInteger("color", color);
     }
+
 }

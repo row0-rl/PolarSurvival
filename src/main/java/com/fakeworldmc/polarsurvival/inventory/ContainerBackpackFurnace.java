@@ -1,32 +1,45 @@
 package com.fakeworldmc.polarsurvival.inventory;
 
-import com.fakeworldmc.polarsurvival.init.Items;
-import com.fakeworldmc.polarsurvival.item.ItemWoolenSuit;
+import com.fakeworldmc.polarsurvival.item.ItemBackpackFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import java.util.Objects;
+
 public class ContainerBackpackFurnace extends Container {
 
-    private SlotItemHandler fuelSlot = new SlotItemHandler(new ItemStackHandler(1), 0, 80, 34) {
-        @Override
-        public boolean isItemValid(ItemStack stack) {
-            return stack != null && super.isItemValid(stack) && TileEntityFurnace.isItemFuel(stack);
-        }
-    };
+    public SlotItemHandler fuelSlot;
 
-    public ContainerBackpackFurnace(InventoryPlayer playerInventory) {
-
+    public ContainerBackpackFurnace(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         super();
-        addSlots(playerInventory);
+        addSlots(playerInventory, playerIn);
     }
 
-    private void addSlots(InventoryPlayer playerInventory) {
+    private void addSlots(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+
+        fuelSlot = new SlotItemHandler(new ItemStackHandler(1),
+                0, 80, 34) {
+
+            {
+                NBTTagCompound nbtTagCompound = playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getTagCompound();
+                if (nbtTagCompound != null) {
+                    this.putStack(new ItemStack(nbtTagCompound));
+                }
+            }
+
+            @Override
+            public boolean isItemValid(ItemStack stack) {
+                return stack != null && super.isItemValid(stack) && TileEntityFurnace.isItemFuel(stack);
+            }
+        };
+
         this.addSlotToContainer(fuelSlot);
 
         for (int i = 0; i < 3; ++i) {
@@ -46,7 +59,7 @@ public class ContainerBackpackFurnace extends Container {
      */
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.BACKPACK_FURNACE;
+        return playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemBackpackFurnace;
     }
 
     @Override
@@ -101,6 +114,13 @@ public class ContainerBackpackFurnace extends Container {
 
         super.onContainerClosed(playerIn);
 
+        ItemStack stack = playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        if (!(stack.getItem() instanceof ItemBackpackFurnace)) {
+            return;
+        }
+
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        stack.setTagCompound(fuelSlot.getStack().writeToNBT(nbtTagCompound));
     }
 
 }
