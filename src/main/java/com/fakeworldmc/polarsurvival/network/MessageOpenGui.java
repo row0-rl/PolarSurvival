@@ -34,9 +34,9 @@ public class MessageOpenGui implements IMessage {
 
                 if (player != null) {
                     World world = player.world;
-                    BlockPos pos = player.getPosition();
+                    BlockPos position = player.getPosition();
                     if (player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemBackpackFurnace) {
-                        player.openGui(PolarSurvival.instance, Guis.GUI_BACKPACK_FURNACE, world, pos.getX(), pos.getY(), pos.getZ());
+                        player.openGui(PolarSurvival.instance, Guis.GUI_BACKPACK_FURNACE, world, position.getX(), position.getY(), position.getZ());
                     }
                 }
             }

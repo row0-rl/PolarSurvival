@@ -70,7 +70,7 @@ public class GuiBackpackFurnace extends GuiContainer {
         this.mc.getTextureManager().bindTexture(TEXTURE);
         ContainerBackpackFurnace containerBackpackFurnace = (ContainerBackpackFurnace) this.inventorySlots;
         if (containerBackpackFurnace.fuelSlot.getStack().getItem() != Items.AIR) {
-            this.drawTexturedModalRect(80, 16, 176, 0, 15, 14);
+            this.drawTexturedModalRect(80, 16, 176, 0, 15, 15);
         }
 
     }

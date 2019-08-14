@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -121,6 +122,13 @@ public class ContainerBackpackFurnace extends Container {
 
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         stack.setTagCompound(fuelSlot.getStack().writeToNBT(nbtTagCompound));
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+
+        super.detectAndSendChanges();
+
     }
 
 }

@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class World {
     private static final WorldGenerator WORLD_GENERATOR_COAL_ORE = new WorldGeneratorCoalOre();
 
-    private BlockPos pos;
+    private BlockPos position;
 
     public World() {
         MinecraftForge.ORE_GEN_BUS.register(this);
@@ -21,8 +21,8 @@ public class World {
 
     @SubscribeEvent
     public void onOreGenPost(OreGenEvent.Post event) {
-        if (!event.getPos().equals(this.pos)) {
-            this.pos = event.getPos();
+        if (!event.getPos().equals(this.position)) {
+            this.position = event.getPos();
             WORLD_GENERATOR_COAL_ORE.generate(event.getWorld(), event.getRand(), event.getPos());
         }
     }
