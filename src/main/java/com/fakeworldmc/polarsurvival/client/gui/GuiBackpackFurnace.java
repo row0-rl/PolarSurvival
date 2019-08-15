@@ -1,7 +1,7 @@
 package com.fakeworldmc.polarsurvival.client.gui;
 
 import com.fakeworldmc.polarsurvival.PolarSurvival;
-import com.fakeworldmc.polarsurvival.init.Keys;
+import com.fakeworldmc.polarsurvival.client.Keys;
 import com.fakeworldmc.polarsurvival.inventory.ContainerBackpackFurnace;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -9,7 +9,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

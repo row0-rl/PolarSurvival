@@ -1,5 +1,6 @@
 package com.fakeworldmc.polarsurvival.init;
 
+import com.fakeworldmc.polarsurvival.PolarSurvival;
 import com.fakeworldmc.polarsurvival.init.Items;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -8,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = "polar_survival")
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = PolarSurvival.MODID)
 public final class Models {
     @SubscribeEvent
     public static void onModelReg(ModelRegistryEvent event) {

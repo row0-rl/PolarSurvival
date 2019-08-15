@@ -1,15 +1,13 @@
 package com.fakeworldmc.polarsurvival.init;
 
+import com.fakeworldmc.polarsurvival.PolarSurvival;
 import com.fakeworldmc.polarsurvival.item.crafting.*;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod.EventBusSubscriber(modid = "polar_survival")
+@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
 public class Craftings {
 
     @SubscribeEvent

@@ -1,5 +1,7 @@
-package com.fakeworldmc.polarsurvival.init;
+package com.fakeworldmc.polarsurvival.client;
 
+import com.fakeworldmc.polarsurvival.PolarSurvival;
+import com.fakeworldmc.polarsurvival.init.Network;
 import com.fakeworldmc.polarsurvival.network.MessageOpenGui;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.settings.KeyConflictContext;
@@ -10,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
-@Mod.EventBusSubscriber(modid = "polar_survival")
+@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
 public class Keys {
 
     public static KeyBinding openBackpackFurnace= new KeyBinding("key.polarSurvival.openBackpackFurnaceGui",

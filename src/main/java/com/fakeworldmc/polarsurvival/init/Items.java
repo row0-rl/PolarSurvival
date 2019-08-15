@@ -1,5 +1,6 @@
 package com.fakeworldmc.polarsurvival.init;
 
+import com.fakeworldmc.polarsurvival.PolarSurvival;
 import com.fakeworldmc.polarsurvival.client.render.color.WoolenSuitTinter;
 import com.fakeworldmc.polarsurvival.item.*;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -14,7 +15,7 @@ import net.minecraftforge.event.RegistryEvent;
 
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = "polar_survival")
+@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
 public class Items {
     public static final ItemWoolenHat WOOLEN_HAT = new ItemWoolenHat();
     public static final ItemSweater SWEATER = new ItemSweater();
@@ -27,10 +28,10 @@ public class Items {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
 
-        event.getRegistry().register(WOOLEN_HAT.setRegistryName("polar_survival:woolen_hat"));
-        event.getRegistry().register(SWEATER.setRegistryName("polar_survival:sweater"));
-        event.getRegistry().register(WOOLEN_PANTS.setRegistryName("polar_survival:woolen_pants"));
-        event.getRegistry().register(SNOW_BOOTS.setRegistryName("polar_survival:snow_boots"));
+        event.getRegistry().registerAll(WOOLEN_HAT.setRegistryName("polar_survival:woolen_hat"),
+                SWEATER.setRegistryName("polar_survival:sweater"),
+                WOOLEN_PANTS.setRegistryName("polar_survival:woolen_pants"),
+                SNOW_BOOTS.setRegistryName("polar_survival:snow_boots"));
 
         event.getRegistry().register(BACKPACK_FURNACE.setRegistryName("polar_survival:backpack_furnace"));
     }

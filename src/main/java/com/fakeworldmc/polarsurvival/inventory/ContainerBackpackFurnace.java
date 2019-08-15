@@ -18,18 +18,18 @@ public class ContainerBackpackFurnace extends Container {
 
     public SlotItemHandler fuelSlot;
 
-    public ContainerBackpackFurnace(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+    public ContainerBackpackFurnace(InventoryPlayer playerInventory, EntityPlayer player) {
         super();
-        addSlots(playerInventory, playerIn);
+        addSlots(playerInventory, player);
     }
 
-    private void addSlots(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+    private void addSlots(InventoryPlayer playerInventory, EntityPlayer player) {
 
         fuelSlot = new SlotItemHandler(new ItemStackHandler(1),
                 0, 80, 34) {
 
             {
-                NBTTagCompound nbtTagCompound = playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getTagCompound();
+                NBTTagCompound nbtTagCompound = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getTagCompound();
                 if (nbtTagCompound != null) {
                     this.putStack(new ItemStack(nbtTagCompound));
                 }
@@ -59,12 +59,12 @@ public class ContainerBackpackFurnace extends Container {
      * backpack furnace is checked when openGui() is called.
      */
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
-        return playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemBackpackFurnace;
+    public boolean canInteractWith(EntityPlayer player) {
+        return player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemBackpackFurnace;
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+    public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 
         final int
                 FUEL = 0,
@@ -105,17 +105,17 @@ public class ContainerBackpackFurnace extends Container {
         else {
             slot.onSlotChanged();
         }
-        slot.onTake(playerIn, newStack);
+        slot.onTake(player, newStack);
 
         return oldStack;
     }
 
     @Override
-    public void onContainerClosed(EntityPlayer playerIn) {
+    public void onContainerClosed(EntityPlayer player) {
 
-        super.onContainerClosed(playerIn);
+        super.onContainerClosed(player);
 
-        ItemStack stack = playerIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (!(stack.getItem() instanceof ItemBackpackFurnace)) {
             return;
         }

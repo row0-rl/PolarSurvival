@@ -27,16 +27,5 @@ public class ItemSweater extends ItemWoolenSuit {
         return multimap;
     }
 
-    /*@Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        BlockPos pos = player.getPosition();
-
-            player.openGui(PolarSurvival.instance, 1, world, pos.getX(), pos.getY(), pos.getZ());
-            return new ActionResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
-
-
-    }
-
-     */
 }
 

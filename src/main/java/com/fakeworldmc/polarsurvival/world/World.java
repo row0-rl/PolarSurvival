@@ -1,4 +1,4 @@
-package com.fakeworldmc.polarsurvival.init;
+package com.fakeworldmc.polarsurvival.world;
 
 import com.fakeworldmc.polarsurvival.world.WorldGeneratorCoalOre;
 import net.minecraft.util.math.BlockPos;
