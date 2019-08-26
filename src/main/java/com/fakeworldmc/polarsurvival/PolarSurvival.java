@@ -38,4 +38,5 @@ public class PolarSurvival {
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
     }
+
 }

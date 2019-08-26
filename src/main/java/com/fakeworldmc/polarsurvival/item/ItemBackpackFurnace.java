@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ItemBackpackFurnace extends ItemArmor {
+
     public static final ArmorMaterial WOOLEN_SUIT_MATERIAL = EnumHelper.addArmorMaterial("backpack_furnace",
             "polar_survival:backpack_furnace", 0, new int[]{0, 0, 0, 0}, 0,
             SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);

@@ -1,6 +1,5 @@
-package com.fakeworldmc.polarsurvival.common;
+package com.fakeworldmc.polarsurvival.init;
 
-import com.fakeworldmc.polarsurvival.init.Enchantments;
 import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -14,308 +13,21 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
 
-import java.util.UUID;
-
 @Mod.EventBusSubscriber(modid = "polar_survival")
 public class ItemModifier {
 
-    private static ItemArmor leatherHelmet = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.HEAD) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    public static final IAttribute WARMTH = (new RangedAttribute((IAttribute)null,
+            "polar_survival.warmth", 1.0, -100.0,
+            100.0)).setDescription("Warmth").setShouldWatch(true);
 
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = getAttributeWarmthAmount(0.1, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    public static ItemArmor leatherChestplate = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.CHEST) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = getAttributeWarmthAmount(0.16, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    public static ItemArmor leatherLeggings = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.LEGS) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = getAttributeWarmthAmount(0.14, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor leatherBoots = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.FEET) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = getAttributeWarmthAmount(0.08, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-
-    private static ItemArmor chainHelmet = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.HEAD) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor chainChestplate = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.CHEST) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor chainLeggings = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.LEGS) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor chainBoots = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.FEET) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-
-    private static ItemArmor ironHelmet = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.HEAD) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor ironChestplate = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.CHEST) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor ironLeggings = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.LEGS) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor ironBoots = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.FEET) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-
-    private static ItemArmor goldHelmet = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.HEAD) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor goldChestplate = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.CHEST) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor goldLeggings = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.LEGS) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor goldBoots = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.FEET) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-
-    private static ItemArmor diamondHelmet = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.HEAD) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.HEAD) {
-                Double amount = getAttributeWarmthAmount(-0.1, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor diamondChestplate = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.CHEST) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.CHEST) {
-                Double amount = getAttributeWarmthAmount(-0.16, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor diamondLeggings = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.LEGS) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.LEGS) {
-                Double amount = getAttributeWarmthAmount(-0.14, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-    private static ItemArmor diamondBoots = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.FEET) {
-        @Override
-        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-
-            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-
-            if (slot == EntityEquipmentSlot.FEET) {
-                Double amount = getAttributeWarmthAmount(-0.08, stack);
-                multimap.put(WARMTH.getName(), new AttributeModifier(WARMTH_MODIFIER,
-                        "Tool Modifier", amount, 1));
-            }
-            return multimap;
-        }
-    };
-
-    public static final UUID WARMTH_MODIFIER = UUID.fromString("4035afc0-e605-465b-8469-30516a8e33ac");
-
-    public static final IAttribute WARMTH = new RangedAttribute((IAttribute)null, "polar_survival.warmth",
-            0d, -1000d, 1000d).setDescription("Warmth").setShouldWatch(true);
-
-    public static Double getAttributeWarmthAmount(Double baseAmount, ItemStack stack) {
-        Double amount = baseAmount + 0.05 * EnchantmentHelper.getEnchantmentLevel(Enchantments.ENCHANTMENT_WARMTH, stack);
-        return amount;
+    public static double getAttributeWarmthAmount(double baseAmount, ItemStack stack) {
+        return baseAmount + 0.05 * EnchantmentHelper
+                .getEnchantmentLevel(Enchantments.ENCHANTMENT_WARMTH, stack);
     }
 
     @SubscribeEvent
     public static void reRegisterItems(RegistryEvent.Register<Item> event) {
+
         leatherHelmet.setTranslationKey("helmetCloth");
         event.getRegistry().register(leatherHelmet.setRegistryName("minecraft:leather_helmet"));
         leatherChestplate.setTranslationKey("chestplateCloth");
@@ -361,12 +73,291 @@ public class ItemModifier {
         diamondBoots.setTranslationKey("bootsDiamond");
         event.getRegistry().register(diamondBoots.setRegistryName("minecraft:diamond_boots"));
 
-
-
     }
 
+    private static ItemArmor leatherHelmet = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.HEAD) {
 
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
 
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
+            if (slot == EntityEquipmentSlot.HEAD) {
+                double amount = getAttributeWarmthAmount(0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor leatherChestplate = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.CHEST) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.CHEST) {
+                double amount = getAttributeWarmthAmount(0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor leatherLeggings = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.LEGS) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.LEGS) {
+                double amount = getAttributeWarmthAmount(0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor leatherBoots = new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.FEET) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.FEET) {
+                double amount = getAttributeWarmthAmount(0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+
+    private static ItemArmor chainHelmet = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.HEAD) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.HEAD) {
+                double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor chainChestplate = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.CHEST) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.CHEST) {
+                double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor chainLeggings = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.LEGS) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.LEGS) {
+                double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor chainBoots = new ItemArmor(ItemArmor.ArmorMaterial.CHAIN, 0, EntityEquipmentSlot.FEET) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.FEET) {
+                double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+
+    private static ItemArmor ironHelmet = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.HEAD) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.HEAD) {
+                double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor ironChestplate = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.CHEST) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.CHEST) {
+                double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor ironLeggings = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.LEGS) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.LEGS) {
+                double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor ironBoots = new ItemArmor(ItemArmor.ArmorMaterial.IRON, 0, EntityEquipmentSlot.FEET) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.FEET) {
+                double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+
+    private static ItemArmor goldHelmet = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.HEAD) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.HEAD) {
+                double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor goldChestplate = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.CHEST) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.CHEST) {
+                double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor goldLeggings = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.LEGS) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.LEGS) {
+                double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor goldBoots = new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 0, EntityEquipmentSlot.FEET) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.FEET) {
+                double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+
+    private static ItemArmor diamondHelmet = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.HEAD) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.HEAD) {
+                double amount = getAttributeWarmthAmount(-0.1, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor diamondChestplate = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.CHEST) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.CHEST) {
+                double amount = getAttributeWarmthAmount(-0.16, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor diamondLeggings = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.LEGS) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.LEGS) {
+                double amount = getAttributeWarmthAmount(-0.14, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
+    private static ItemArmor diamondBoots = new ItemArmor(ItemArmor.ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.FEET) {
+
+        @Override
+        public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+
+            Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+            if (slot == EntityEquipmentSlot.FEET) {
+                double amount = getAttributeWarmthAmount(-0.08, stack);
+                multimap.put(WARMTH.getName(), new AttributeModifier("Armor modifier", amount, 2));
+            }
+            return multimap;
+        }
+    };
 
 }

@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class RecipeWoolenPants extends RecipeWoolenSuit {
+
     private final int[] INGREDIENT_POSITION = {0, 1, 2, 3, 5, 6, 8};
     private final int[] EMPTY_POSITION = {4, 7};
 

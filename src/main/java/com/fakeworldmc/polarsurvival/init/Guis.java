@@ -8,8 +8,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-public class Guis implements IGuiHandler
-{
+public class Guis implements IGuiHandler {
+
     public static final int GUI_BACKPACK_FURNACE = 0;
 
     public Guis() {
@@ -37,4 +37,5 @@ public class Guis implements IGuiHandler
                 return null;
         }
     }
+
 }

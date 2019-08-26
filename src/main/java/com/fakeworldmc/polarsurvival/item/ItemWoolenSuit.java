@@ -20,15 +20,16 @@ public class ItemWoolenSuit extends ItemArmor {
             SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
 
     @Override
-    public boolean hasOverlay(ItemStack stack)
-    {
+    public boolean hasOverlay(ItemStack stack) {
         return true;
     }
 
     @Override
     public boolean hasColor(ItemStack stack) {
+
         NBTTagCompound nbttagcompound = stack.getTagCompound();
-        return nbttagcompound != null && nbttagcompound.hasKey("display", 10) ? nbttagcompound.getCompoundTag("display").hasKey("color", 3) : false;
+        return (nbttagcompound != null && nbttagcompound.hasKey("display", 10)) &&
+                nbttagcompound.getCompoundTag("display").hasKey("color", 3);
     }
 
     @Override
@@ -36,22 +37,15 @@ public class ItemWoolenSuit extends ItemArmor {
 
         NBTTagCompound nbttagcompound = stack.getTagCompound();
 
-        if (nbttagcompound != null)
-        {
+        if (nbttagcompound != null) {
             NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
 
-            if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3))
-            {
+            if (nbttagcompound1 != null && nbttagcompound1.hasKey("color", 3)) {
                 return nbttagcompound1.getInteger("color");
             }
         }
 
         return 0xFFFFFF;
-    }
-
-    @Override
-    public int getItemBurnTime(ItemStack stack) {
-        return 100;
     }
 
     @Override
@@ -71,6 +65,11 @@ public class ItemWoolenSuit extends ItemArmor {
             }
 
             nbttagcompound1.setInteger("color", color);
+    }
+
+    @Override
+    public int getItemBurnTime(ItemStack stack) {
+        return 100;
     }
 
 }

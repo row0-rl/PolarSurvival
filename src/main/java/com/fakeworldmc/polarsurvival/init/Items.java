@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
 public class Items {
+
     public static final ItemWoolenHat WOOLEN_HAT = new ItemWoolenHat();
     public static final ItemSweater SWEATER = new ItemSweater();
     public static final ItemWoolenPants WOOLEN_PANTS = new ItemWoolenPants();
@@ -28,7 +29,8 @@ public class Items {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
 
-        event.getRegistry().registerAll(WOOLEN_HAT.setRegistryName("polar_survival:woolen_hat"),
+        event.getRegistry().registerAll(
+                WOOLEN_HAT.setRegistryName("polar_survival:woolen_hat"),
                 SWEATER.setRegistryName("polar_survival:sweater"),
                 WOOLEN_PANTS.setRegistryName("polar_survival:woolen_pants"),
                 SNOW_BOOTS.setRegistryName("polar_survival:snow_boots"));
@@ -37,8 +39,7 @@ public class Items {
     }
 
     @SubscribeEvent
-    public static void itemColors(ColorHandlerEvent.Item event) {
-
+    public static void registerItemColors(ColorHandlerEvent.Item event) {
         event.getItemColors().registerItemColorHandler(WOOLEN_SUIT_TINTER, WOOLEN_HAT, SWEATER, WOOLEN_PANTS, SNOW_BOOTS);
     }
 

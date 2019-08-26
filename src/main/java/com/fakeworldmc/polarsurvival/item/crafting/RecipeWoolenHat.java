@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class RecipeWoolenHat extends RecipeWoolenSuit {
+
     private final int[] INGREDIENT_POSITION_1 = {0, 1, 2, 3, 5};
     private final int[] EMPTY_POSITION_1 = {4, 6, 7, 8};
 
@@ -20,7 +21,7 @@ public class RecipeWoolenHat extends RecipeWoolenSuit {
         return matchesPattern1(inv) || matchesPattern2(inv);
     }
 
-    public boolean matchesPattern1(InventoryCrafting inv) {
+    private boolean matchesPattern1(InventoryCrafting inv) {
 
         for (int i : INGREDIENT_POSITION_1) {
             if (inv.getStackInSlot(i).getItem() != Item.getItemFromBlock(Blocks.WOOL)) {
@@ -36,7 +37,8 @@ public class RecipeWoolenHat extends RecipeWoolenSuit {
 
         return true;
     }
-    public boolean matchesPattern2(InventoryCrafting inv) {
+
+    private boolean matchesPattern2(InventoryCrafting inv) {
 
         for (int i : INGREDIENT_POSITION_2) {
             if (inv.getStackInSlot(i).getItem() != Item.getItemFromBlock(Blocks.WOOL)) {

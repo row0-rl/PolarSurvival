@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = PolarSurvival.MODID)
 public final class Models {
+
     @SubscribeEvent
     public static void onModelReg(ModelRegistryEvent event) {
 
@@ -29,8 +30,7 @@ public final class Models {
             ModelLoader.setCustomModelResourceLocation(Items.BACKPACK_FURNACE, 0,
                     new ModelResourceLocation(Items.BACKPACK_FURNACE.getRegistryName(), "inventory"));
 
-
-
     }
+
 }
 

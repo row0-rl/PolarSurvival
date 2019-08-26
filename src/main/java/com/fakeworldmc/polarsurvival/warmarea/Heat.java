@@ -1,8 +1,8 @@
 package com.fakeworldmc.polarsurvival.warmarea;
 
-import com.fakeworldmc.polarsurvival.common.ItemModifier;
+import com.fakeworldmc.polarsurvival.init.ItemModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.inventory.EntityEquipmentSlot;
 
 public class Heat {
 
@@ -11,19 +11,22 @@ public class Heat {
     private int speed;
     private EntityPlayer player;
 
-    public Heat(EntityPlayer player) {
+    static final double BASE_SPEED = 1.0D;
+
+    Heat(EntityPlayer player, int heatLevel) {
         this.player = player;
+        setHeatLevel(heatLevel);
     }
 
-    public void add() {
+    void add() {
         if (heatLevel >= 20) {
             heatLevel = 20;
             return;
         }
         heatLevel++;
     }
-//is 'reduce' right??
-    public void reduce() {
+
+    void drop() {
         if (heatLevel <= 0) {
             heatLevel = 0;
             return;
@@ -31,7 +34,7 @@ public class Heat {
         heatLevel--;
     }
 
-    public Heat setHeatLevel(int heatLevel) {
+    Heat setHeatLevel(int heatLevel) {
         if (heatLevel > 20) {
             heatLevel = 20;
         }
@@ -39,16 +42,37 @@ public class Heat {
         return this;
     }
 
-    public int getHeatLevel() {
+    int getHeatLevel() {
         return heatLevel;
     }
 
-    public int getSpeed() {
+    int getSpeed() {
 
         int difficulty = player.getEntityWorld().getDifficulty().getId();
-        speed = difficulty == 0 ? -1 : 60 * 20 / difficulty;
-        speed += speed * player.getAttributeMap().getAttributeInstance(ItemModifier.WARMTH)
-                .getAttributeValue() / 100;
+        speed = difficulty == 0 ? -1 : (int)(60 * 20 * 4 * BASE_SPEED / difficulty);
+        try {
+            player.getEntityAttribute(ItemModifier.WARMTH).removeAllModifiers();
+            for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
+                player.getAttributeMap().applyAttributeModifiers(player.getItemStackFromSlot(slot).getAttributeModifiers(slot));
+                /*Multimap<String, AttributeModifier> attributeModifiers = player.getItemStackFromSlot(slot).getAttributeModifiers(slot);
+                for (String key: attributeModifiers.keys()) {
+                    if (key == ItemModifier.WARMTH.getName()) {
+                        System.out.println(slot.getName());
+                        for (AttributeModifier attributeModifier: attributeModifiers.get(key)) {
+                            player.getEntityAttribute(ItemModifier.WARMTH).applyModifier(attributeModifier);
+                            System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
+                        }
+
+                    }
+                }
+                 */
+            }
+
+            speed *= player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue();
+            System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
+        } catch (Exception ignored) {}
+
         return speed;
     }
+
 }

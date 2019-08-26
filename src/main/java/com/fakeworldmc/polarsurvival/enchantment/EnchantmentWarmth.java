@@ -9,6 +9,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 
 public class EnchantmentWarmth extends Enchantment {
+
     public EnchantmentWarmth() {
         super(Rarity.COMMON, EnumEnchantmentType.ARMOR, new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD,
                 EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET});
@@ -23,6 +24,5 @@ public class EnchantmentWarmth extends Enchantment {
     public int getMaxLevel() {
         return 3;
     }
-
 
 }

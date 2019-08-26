@@ -18,8 +18,9 @@ import java.io.IOException;
 @SideOnly(Side.CLIENT)
 public class GuiBackpackFurnace extends GuiContainer {
 
-    private static final String TEXTURE_PATH = PolarSurvival.MODID + ":" + "textures/gui/container/gui_backpack_furnace.png";
-    private static final ResourceLocation TEXTURE = new ResourceLocation(TEXTURE_PATH);
+    private static final ResourceLocation TEXTURE =
+        new ResourceLocation(PolarSurvival.MODID +
+                ":textures/gui/container/gui_backpack_furnace.png");
 
     public GuiBackpackFurnace(InventoryPlayer playerInventory, EntityPlayer playerIn) {
 
@@ -73,4 +74,5 @@ public class GuiBackpackFurnace extends GuiContainer {
         }
 
     }
+
 }

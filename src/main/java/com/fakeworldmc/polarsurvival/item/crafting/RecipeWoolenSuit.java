@@ -32,8 +32,7 @@ public abstract class RecipeWoolenSuit extends net.minecraftforge.registries.IFo
 
         NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
-        for (int i = 0; i < nonnulllist.size(); ++i)
-        {
+        for (int i = 0; i < nonnulllist.size(); ++i) {
             ItemStack itemstack = inv.getStackInSlot(i);
             nonnulllist.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
         }
@@ -41,6 +40,7 @@ public abstract class RecipeWoolenSuit extends net.minecraftforge.registries.IFo
         return nonnulllist;
     }
 
+    //TODO
     @Override
     public boolean isDynamic() {
         return true;
@@ -56,7 +56,7 @@ public abstract class RecipeWoolenSuit extends net.minecraftforge.registries.IFo
      * @param inv
      * @return Return -1 if the metadatas are not the same. Return the metadata if they are the same.
      */
-    public int getWoolMetadata(InventoryCrafting inv) {
+    private int getWoolMetadata(InventoryCrafting inv) {
 
         int metadata = -1;
 

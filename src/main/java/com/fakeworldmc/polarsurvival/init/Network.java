@@ -22,4 +22,5 @@ public class Network {
             Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType, Side side) {
         instance.registerMessage(messageHandler, requestMessageType, id++, side);
     }
+
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WoolenSuitTinter implements IItemColor {
+
     public static Map<Integer, Integer> colors = new HashMap<Integer, Integer>(){{
         put(0, 0xFFFFFF);
         put(1, 0xFFAA28);
@@ -30,6 +31,7 @@ public class WoolenSuitTinter implements IItemColor {
     public int colorMultiplier(ItemStack stack, int tintIndex) {
         return tintIndex > 0 ? -1 : ((ItemWoolenSuit)stack.getItem()).getColor(stack);
     }
+
 }
 
 

@@ -1,7 +1,6 @@
 package com.fakeworldmc.polarsurvival.warmarea;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 
 public enum HeatSource {

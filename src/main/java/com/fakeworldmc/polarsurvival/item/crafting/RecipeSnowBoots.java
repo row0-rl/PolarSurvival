@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class RecipeSnowBoots extends RecipeWoolenSuit {
+
+    //TODO
     private final int[] INGREDIENT_WOOL_POSITION_1 = {3, 5};
     private final int[] INGREDIENT_LEATHER_POSITION_1 = {6, 8};
     private final int[] EMPTY_POSITION_1 = {0, 1, 2, 4, 7};
@@ -44,6 +46,7 @@ public class RecipeSnowBoots extends RecipeWoolenSuit {
 
         return true;
     }
+
     private boolean matchesPattern2(InventoryCrafting inv) {
 
         for (int i: INGREDIENT_WOOL_POSITION_2) {
