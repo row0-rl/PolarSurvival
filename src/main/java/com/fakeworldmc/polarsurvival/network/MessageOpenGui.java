@@ -1,7 +1,7 @@
 package com.fakeworldmc.polarsurvival.network;
 
 import com.fakeworldmc.polarsurvival.PolarSurvival;
-import com.fakeworldmc.polarsurvival.init.Guis;
+import com.fakeworldmc.polarsurvival.inventory.GuiHandler;
 import com.fakeworldmc.polarsurvival.item.ItemBackpackFurnace;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -36,7 +36,7 @@ public class MessageOpenGui implements IMessage {
                     World world = player.world;
                     BlockPos position = player.getPosition();
                     if (player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemBackpackFurnace) {
-                        player.openGui(PolarSurvival.instance, Guis.GUI_BACKPACK_FURNACE, world, position.getX(), position.getY(), position.getZ());
+                        player.openGui(PolarSurvival.instance, GuiHandler.GUI_BACKPACK_FURNACE, world, position.getX(), position.getY(), position.getZ());
                     }
                 }
             }

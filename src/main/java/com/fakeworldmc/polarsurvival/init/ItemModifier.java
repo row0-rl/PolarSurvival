@@ -13,12 +13,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
 
-@Mod.EventBusSubscriber(modid = "polar_survival")
+@Mod.EventBusSubscriber
 public class ItemModifier {
 
     public static final IAttribute WARMTH = (new RangedAttribute((IAttribute)null,
             "polar_survival.warmth", 1.0, -100.0,
-            100.0)).setDescription("Warmth").setShouldWatch(true);
+            100.0)).setShouldWatch(true);
 
     public static double getAttributeWarmthAmount(double baseAmount, ItemStack stack) {
         return baseAmount + 0.05 * EnchantmentHelper

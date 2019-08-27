@@ -1,8 +1,14 @@
 package com.fakeworldmc.polarsurvival.warmarea;
 
 import com.fakeworldmc.polarsurvival.init.ItemModifier;
+import com.google.common.collect.Lists;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+
+import java.util.Collection;
 
 public class Heat {
 
@@ -11,14 +17,14 @@ public class Heat {
     private int speed;
     private EntityPlayer player;
 
-    static final double BASE_SPEED = 1.0D;
+    public static final double BASE_SPEED = 1.0D;
 
-    Heat(EntityPlayer player, int heatLevel) {
+    public Heat(EntityPlayer player, int heatLevel) {
         this.player = player;
         setHeatLevel(heatLevel);
     }
 
-    void add() {
+    public void add() {
         if (heatLevel >= 20) {
             heatLevel = 20;
             return;
@@ -26,7 +32,7 @@ public class Heat {
         heatLevel++;
     }
 
-    void drop() {
+    public void drop() {
         if (heatLevel <= 0) {
             heatLevel = 0;
             return;
@@ -34,7 +40,7 @@ public class Heat {
         heatLevel--;
     }
 
-    Heat setHeatLevel(int heatLevel) {
+    public Heat setHeatLevel(int heatLevel) {
         if (heatLevel > 20) {
             heatLevel = 20;
         }
@@ -42,16 +48,23 @@ public class Heat {
         return this;
     }
 
-    int getHeatLevel() {
+    public int getHeatLevel() {
         return heatLevel;
     }
 
-    int getSpeed() {
+    public int getSpeed() {
 
         int difficulty = player.getEntityWorld().getDifficulty().getId();
         speed = difficulty == 0 ? -1 : (int)(60 * 20 * 4 * BASE_SPEED / difficulty);
         try {
-            player.getEntityAttribute(ItemModifier.WARMTH).removeAllModifiers();
+            //TODO onArmorTick ISpecialArmor?
+            //player.getEntityAttribute(ItemModifier.WARMTH).removeAllModifiers();
+            IAttributeInstance attribute = player.getEntityAttribute(ItemModifier.WARMTH);
+            Collection<AttributeModifier> collection = attribute.getModifiers();
+            for (AttributeModifier attributemodifier: Lists.newArrayList(collection)) {
+                attribute.removeModifier(attributemodifier);
+            }
+
             for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
                 player.getAttributeMap().applyAttributeModifiers(player.getItemStackFromSlot(slot).getAttributeModifiers(slot));
                 /*Multimap<String, AttributeModifier> attributeModifiers = player.getItemStackFromSlot(slot).getAttributeModifiers(slot);
@@ -69,8 +82,8 @@ public class Heat {
             }
 
             speed *= player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue();
-            System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
-        } catch (Exception ignored) {}
+            //System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
+        } catch (NullPointerException ignored) {}
 
         return speed;
     }

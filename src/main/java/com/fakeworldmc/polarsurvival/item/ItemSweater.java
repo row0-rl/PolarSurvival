@@ -12,7 +12,6 @@ public class ItemSweater extends ItemWoolenSuit {
     public ItemSweater() {
         super(EntityEquipmentSlot.CHEST);
         this.setTranslationKey("sweater");
-        this.setCreativeTab(CreativeTabs.COMBAT);
     }
 
     @Override

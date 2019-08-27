@@ -12,7 +12,6 @@ public class ItemSnowBoots extends ItemWoolenSuit {
     public ItemSnowBoots() {
         super(EntityEquipmentSlot.FEET);
         this.setTranslationKey("snowBoots");
-        this.setCreativeTab(CreativeTabs.COMBAT);
     }
 
     @Override

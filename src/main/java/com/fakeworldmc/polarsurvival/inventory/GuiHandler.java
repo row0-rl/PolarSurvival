@@ -1,4 +1,4 @@
-package com.fakeworldmc.polarsurvival.init;
+package com.fakeworldmc.polarsurvival.inventory;
 
 import com.fakeworldmc.polarsurvival.PolarSurvival;
 import com.fakeworldmc.polarsurvival.client.gui.GuiBackpackFurnace;
@@ -8,11 +8,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-public class Guis implements IGuiHandler {
+public class GuiHandler implements IGuiHandler {
 
     public static final int GUI_BACKPACK_FURNACE = 0;
 
-    public Guis() {
+    public GuiHandler() {
         NetworkRegistry.INSTANCE.registerGuiHandler(PolarSurvival.instance, this);
     }
 
@@ -25,6 +25,7 @@ public class Guis implements IGuiHandler {
             default:
                 return null;
         }
+
     }
 
     @Override
@@ -36,6 +37,7 @@ public class Guis implements IGuiHandler {
             default:
                 return null;
         }
+
     }
 
 }

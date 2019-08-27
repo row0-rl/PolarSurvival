@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "result": {
+    "item": "polar_survival:backpack_furnace"
+  },
+  "pattern": [
+    "YXY",
+    "X X",
+    "XXX"
+  ],
+  "key": {
+    "X": {"item": "minecraft:cobblestone"},
+    "Y": {"item": "minecraft:string"}
+  }
+}

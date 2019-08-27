@@ -3,9 +3,13 @@ package com.fakeworldmc.polarsurvival.client.render.color;
 import com.fakeworldmc.polarsurvival.item.ItemWoolenSuit;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@SideOnly(Side.CLIENT)
 public class WoolenSuitTinter implements IItemColor {
 
     public static Map<Integer, Integer> colors = new HashMap<Integer, Integer>(){{

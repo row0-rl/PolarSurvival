@@ -48,6 +48,7 @@ public class ContainerBackpackFurnace extends Container {
         for (int k = 0; k < 9; ++k) {
             this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 124));
         }
+
     }
 
     /**
@@ -104,6 +105,7 @@ public class ContainerBackpackFurnace extends Container {
         slot.onTake(player, newStack);
 
         return oldStack;
+
     }
 
     @Override
@@ -118,12 +120,6 @@ public class ContainerBackpackFurnace extends Container {
 
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         stack.setTagCompound(fuelSlot.getStack().writeToNBT(nbtTagCompound));
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-
-        super.detectAndSendChanges();
 
     }
 

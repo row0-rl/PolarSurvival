@@ -1,7 +1,7 @@
 package com.fakeworldmc.polarsurvival.client.gui;
 
 import com.fakeworldmc.polarsurvival.PolarSurvival;
-import com.fakeworldmc.polarsurvival.client.Keys;
+import com.fakeworldmc.polarsurvival.init.Keys;
 import com.fakeworldmc.polarsurvival.inventory.ContainerBackpackFurnace;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;

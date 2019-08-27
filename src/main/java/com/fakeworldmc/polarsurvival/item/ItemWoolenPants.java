@@ -12,7 +12,6 @@ public class ItemWoolenPants extends ItemWoolenSuit {
     public ItemWoolenPants() {
         super(EntityEquipmentSlot.LEGS);
         this.setTranslationKey("woolenPants");
-        this.setCreativeTab(CreativeTabs.COMBAT);
     }
 
     @Override

@@ -11,8 +11,9 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemWoolenSuit extends ItemArmor {
 
-    public ItemWoolenSuit(EntityEquipmentSlot slot) {
+    ItemWoolenSuit(EntityEquipmentSlot slot) {
         super(WOOLEN_SUIT_MATERIAL, 0, slot);
+        this.setCreativeTab(CreativeTabs.COMBAT);
     }
 
     public static final ArmorMaterial WOOLEN_SUIT_MATERIAL = EnumHelper.addArmorMaterial("wool",

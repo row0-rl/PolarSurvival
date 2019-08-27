@@ -1,21 +1,13 @@
 package com.fakeworldmc.polarsurvival.init;
 
-import com.fakeworldmc.polarsurvival.PolarSurvival;
 import com.fakeworldmc.polarsurvival.client.render.color.WoolenSuitTinter;
 import com.fakeworldmc.polarsurvival.item.*;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.RegistryEvent;
 
-import java.util.UUID;
-
-@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
+@Mod.EventBusSubscriber
 public class Items {
 
     public static final ItemWoolenHat WOOLEN_HAT = new ItemWoolenHat();
@@ -23,8 +15,6 @@ public class Items {
     public static final ItemWoolenPants WOOLEN_PANTS = new ItemWoolenPants();
     public static final ItemSnowBoots SNOW_BOOTS = new ItemSnowBoots();
     public static final ItemBackpackFurnace BACKPACK_FURNACE = new ItemBackpackFurnace();
-
-    public static final WoolenSuitTinter WOOLEN_SUIT_TINTER = new WoolenSuitTinter();
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -36,11 +26,6 @@ public class Items {
                 SNOW_BOOTS.setRegistryName("polar_survival:snow_boots"));
 
         event.getRegistry().register(BACKPACK_FURNACE.setRegistryName("polar_survival:backpack_furnace"));
-    }
-
-    @SubscribeEvent
-    public static void registerItemColors(ColorHandlerEvent.Item event) {
-        event.getItemColors().registerItemColorHandler(WOOLEN_SUIT_TINTER, WOOLEN_HAT, SWEATER, WOOLEN_PANTS, SNOW_BOOTS);
     }
 
 }

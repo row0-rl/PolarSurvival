@@ -1,37 +1,45 @@
 package com.fakeworldmc.polarsurvival.warmarea;
 
-import com.fakeworldmc.polarsurvival.PolarSurvival;
 import com.fakeworldmc.polarsurvival.init.ItemModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
+//@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
 public class WarmArea {
-
+//TODO
     private static int addTimer = 0,
             reduceTimer = 0,
             attackTimer = 0;
-    private static int heatLevel = 8;
+
+    public static Heat heat = new Heat(null, 8);
 
     protected static final DamageSource FREEZE =
             new DamageSource("freeze").setDifficultyScaled()
                     .setDamageBypassesArmor().setDamageIsAbsolute();
 
+    public WarmArea() {
+        MinecraftForge.EVENT_BUS.register(WarmArea.class);
+    }
+
     @SubscribeEvent
     public static void checkIsPlayerInWarmArea(TickEvent.PlayerTickEvent event) {
 
         if (event.player.capabilities.isCreativeMode) return;
+        if (event.player.isDead) {
+            heat.setHeatLevel(8);
+            return;
+        }
 
         HeatSource source = isPlayerInWarmArea(event.player);
-        Heat heat = new Heat(event.player, heatLevel);
+        heat = new Heat(event.player, heat.getHeatLevel());
         if (heat.getSpeed() == -1) return;
-        System.out.println("HeatLevel: "+heatLevel);
+        System.out.println("HeatLevel: "+ WarmArea.heat.getHeatLevel());
 
         /** Add the heat level. */
         if (source.level > heat.getHeatLevel()) {
@@ -74,14 +82,18 @@ public class WarmArea {
             attackTimer = 0;
         }
 
-        heatLevel = heat.getHeatLevel();
     }
 
     @SubscribeEvent
     public static void registerAttributes(EntityJoinWorldEvent event) {
+
         if (!(event.getEntity() instanceof EntityPlayer)) return;
-        ((EntityPlayer)(event.getEntity())).getAttributeMap()
-                .registerAttribute(ItemModifier.WARMTH).setBaseValue(Heat.BASE_SPEED);
+
+        try {
+            ((EntityPlayer) (event.getEntity())).getAttributeMap()
+                    .registerAttribute(ItemModifier.WARMTH).setBaseValue(Heat.BASE_SPEED);
+        } catch (IllegalArgumentException ignored) {}
+
     }
 
     private static HeatSource isPlayerInWarmArea(EntityPlayer playerIn) {

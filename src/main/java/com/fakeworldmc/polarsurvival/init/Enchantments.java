@@ -7,7 +7,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
+@Mod.EventBusSubscriber()
 public class Enchantments {
 
     public static final EnchantmentWarmth ENCHANTMENT_WARMTH = new EnchantmentWarmth();
