@@ -1,6 +1,7 @@
 package com.fakeworldmc.polarsurvival.warmarea;
 
 import com.fakeworldmc.polarsurvival.init.ItemModifier;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
@@ -36,17 +37,17 @@ public class WarmArea {
             return;
         }
 
-        HeatSource source = isPlayerInWarmArea(event.player);
+        HeatSource source = isEntityInWarmArea(event.player);
         heat = new Heat(event.player, heat.getHeatLevel());
         if (heat.getSpeed() == -1) return;
-        System.out.println("HeatLevel: "+ WarmArea.heat.getHeatLevel());
+        //System.out.println("HeatLevel: "+ WarmArea.heat.getHeatLevel());
 
         /** Add the heat level. */
         if (source.level > heat.getHeatLevel()) {
             addTimer++;
             reduceTimer = 0;
             attackTimer = 0;
-            System.out.println("AddTimer: "+addTimer);
+            //System.out.println("AddTimer: "+addTimer);
             if (addTimer >= 100 * 4) {
                 addTimer = 0;
                 heat.add();
@@ -58,7 +59,7 @@ public class WarmArea {
             addTimer = 0;
             reduceTimer++;
             attackTimer = 0;
-            System.out.println("ReduceTimer: "+reduceTimer);
+            //System.out.println("ReduceTimer: "+reduceTimer);
             if (reduceTimer >= heat.getSpeed()) {
                 reduceTimer = 0;
                 heat.drop();
@@ -70,6 +71,7 @@ public class WarmArea {
             addTimer = 0;
             reduceTimer = 0;
             attackTimer++;
+            //System.out.println("AttackTimer: "+attackTimer);
             if (attackTimer >= 20 * 4) {
                 attackTimer = 0;
                 event.player.attackEntityFrom(FREEZE, 1);
@@ -96,10 +98,10 @@ public class WarmArea {
 
     }
 
-    private static HeatSource isPlayerInWarmArea(EntityPlayer playerIn) {
+    public static HeatSource isEntityInWarmArea(Entity entity) {
 
-        World world = playerIn.getEntityWorld();
-        BlockPos center = playerIn.getPosition();
+        World world = entity.getEntityWorld();
+        BlockPos center = entity.getPosition();
         HeatSource hottestSource = HeatSource.AIR;
 
         for (HeatSource source: HeatSource.values()) {
