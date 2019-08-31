@@ -26,7 +26,6 @@ public class Items {
                 SNOW_BOOTS.setRegistryName("polar_survival:snow_boots"));
 
         event.getRegistry().register(BACKPACK_FURNACE.setRegistryName("polar_survival:backpack_furnace"));
-
     }
 
 }

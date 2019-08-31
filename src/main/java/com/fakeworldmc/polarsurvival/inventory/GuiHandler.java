@@ -17,11 +17,11 @@ public class GuiHandler implements IGuiHandler {
     }
 
     @Override
-    public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getServerGuiElement(int id, EntityPlayer playerIn, World worldIn, int x, int y, int z) {
 
         switch (id) {
             case GUI_BACKPACK_FURNACE:
-                return new ContainerBackpackFurnace(player.inventory, player);
+                return new ContainerBackpackFurnace(playerIn.inventory, playerIn);
             default:
                 return null;
         }

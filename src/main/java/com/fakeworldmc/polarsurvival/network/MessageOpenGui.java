@@ -8,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -37,8 +36,7 @@ public class MessageOpenGui implements IMessage {
                     World world = player.world;
                     BlockPos position = player.getPosition();
                     if (player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemBackpackFurnace) {
-                        //player.openGui(PolarSurvival.instance, GuiHandler.GUI_BACKPACK_FURNACE, world, position.getX(), position.getY(), position.getZ());
-                        FMLNetworkHandler.openGui(player, PolarSurvival.instance, GuiHandler.GUI_BACKPACK_FURNACE, world, position.getX(), position.getY(), position.getZ());
+                        player.openGui(PolarSurvival.instance, GuiHandler.GUI_BACKPACK_FURNACE, world, position.getX(), position.getY(), position.getZ());
                     }
                 }
             }

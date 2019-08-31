@@ -1,10 +1,6 @@
 package com.fakeworldmc.polarsurvival.inventory;
 
 import com.fakeworldmc.polarsurvival.item.ItemBackpackFurnace;
-import com.fakeworldmc.polarsurvival.warmarea.Heat;
-import com.fakeworldmc.polarsurvival.warmarea.HeatSource;
-import com.fakeworldmc.polarsurvival.warmarea.WarmArea;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
@@ -15,9 +11,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerBackpackFurnace extends Container {
-
-    private static int burnTimer = 0;
-    public boolean isBurning = false;
 
     public SlotItemHandler fuelSlot;
 
@@ -69,7 +62,7 @@ public class ContainerBackpackFurnace extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-//TODO
+
         final int
                 FUEL = 0,
                 INV_START = 1,
@@ -127,40 +120,6 @@ public class ContainerBackpackFurnace extends Container {
 
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         stack.setTagCompound(fuelSlot.getStack().writeToNBT(nbtTagCompound));
-
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-
-        super.detectAndSendChanges();
-
-        ItemStack stack = fuelSlot.getStack();
-
-        if (!isBurning) {
-
-            burnTimer = 0;
-            if (stack != ItemStack.EMPTY && WarmArea.heat.getHeatLevel() == 0 &&
-                    WarmArea.isEntityInWarmArea(Minecraft.getMinecraft().player) == HeatSource.AIR) {
-
-                stack.setCount(fuelSlot.getStack().getCount() - 1);
-                isBurning = true;
-
-            }
-        }
-        else {
-
-            int totalBurnTime = stack.getItem().getItemBurnTime(stack) - Heat.ADD_HEAT_LEVEL_SPEED_WHEN_BURNING;
-            burnTimer++;
-
-            if (burnTimer % Heat.ADD_HEAT_LEVEL_SPEED_WHEN_BURNING == 0) {
-                WarmArea.heat.add();
-            }
-            if (burnTimer >= totalBurnTime) {
-                isBurning = false;
-            }
-
-        }
 
     }
 

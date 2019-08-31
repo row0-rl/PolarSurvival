@@ -16,19 +16,15 @@ public class WorldGeneratorCoalOre extends WorldGenerator {
 
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
-
         if (TerrainGen.generateOre(world, rand, this, pos, OreGenEvent.GenerateMinable.EventType.CUSTOM)) {
-
-            int posX = pos.getX() + rand.nextInt(16);
-            int posY = 4 + rand.nextInt(256);
-            int posZ = pos.getZ() + rand.nextInt(16);
-            BlockPos blockpos = new BlockPos(posX, posY, posZ);
-
-            coalOreGenerator.generate(world, rand, blockpos);
-
+            for (int i = 0; i < 3; ++i) {
+                int posX = pos.getX() + rand.nextInt(16);
+                int posY = 4 + rand.nextInt(256);
+                int posZ = pos.getZ() + rand.nextInt(16);
+                BlockPos blockpos = new BlockPos(posX, posY, posZ);
+                coalOreGenerator.generate(world, rand, blockpos);
+            }
         }
-
         return true;
-
     }
 }
