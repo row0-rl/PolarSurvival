@@ -7,16 +7,15 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-//@Mod.EventBusSubscriber(modid = PolarSurvival.MODID)
 public class WarmArea {
-//TODO
+
     private static int addTimer = 0,
-            reduceTimer = 0,
-            attackTimer = 0;
+            dropTimer = 0,
+            freezeTimer = 0;
 
     public static Heat heat = new Heat(null, 8);
 
@@ -38,17 +37,18 @@ public class WarmArea {
         }
 
         HeatSource source = isEntityInWarmArea(event.player);
-        heat = new Heat(event.player, heat.getHeatLevel());
-        if (heat.getSpeed() == -1) return;
-        //System.out.println("HeatLevel: "+ WarmArea.heat.getHeatLevel());
+        heat = new Heat(event.player, heat.getHeatLevel()).applyWarmthModifiers();
+        int speed = heat.getSpeed();
+        if (speed == -1) return;
+        System.out.println("HeatLevel: "+ WarmArea.heat.getHeatLevel() + "   Player: " + event.player.getName());
 
         /** Add the heat level. */
         if (source.level > heat.getHeatLevel()) {
             addTimer++;
-            reduceTimer = 0;
-            attackTimer = 0;
+            dropTimer = 0;
+            freezeTimer = 0;
             //System.out.println("AddTimer: "+addTimer);
-            if (addTimer >= 100 * 4) {
+            if (addTimer >= 5 * Heat.TICKS_PER_SECOND) {
                 addTimer = 0;
                 heat.add();
             }
@@ -57,11 +57,11 @@ public class WarmArea {
         /** Reduce the heat level. */
         else if (source.level < heat.getHeatLevel()) {
             addTimer = 0;
-            reduceTimer++;
-            attackTimer = 0;
+            dropTimer++;
+            freezeTimer = 0;
             //System.out.println("ReduceTimer: "+reduceTimer);
-            if (reduceTimer >= heat.getSpeed()) {
-                reduceTimer = 0;
+            if (dropTimer >= speed) {
+                dropTimer = 0;
                 heat.drop();
             }
         }
@@ -69,25 +69,25 @@ public class WarmArea {
         /** Freeze the player. */
         else if (heat.getHeatLevel() == 0) {
             addTimer = 0;
-            reduceTimer = 0;
-            attackTimer++;
+            dropTimer = 0;
+            freezeTimer++;
             //System.out.println("AttackTimer: "+attackTimer);
-            if (attackTimer >= 20 * 4) {
-                attackTimer = 0;
+            if (freezeTimer >= 1 * Heat.TICKS_PER_SECOND) {
+                freezeTimer = 0;
                 event.player.attackEntityFrom(FREEZE, 1);
             }
         }
 
         else {
             addTimer = 0;
-            reduceTimer = 0;
-            attackTimer = 0;
+            dropTimer = 0;
+            freezeTimer = 0;
         }
 
     }
 
     @SubscribeEvent
-    public static void registerAttributes(EntityJoinWorldEvent event) {
+    public static void registerAttributes(EntityEvent.EntityConstructing event) {
 
         if (!(event.getEntity() instanceof EntityPlayer)) return;
 

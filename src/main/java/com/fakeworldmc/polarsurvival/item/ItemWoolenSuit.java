@@ -1,12 +1,17 @@
 package com.fakeworldmc.polarsurvival.item;
 
+import com.fakeworldmc.polarsurvival.init.ItemModifier;
+import com.google.common.collect.Multimap;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class ItemWoolenSuit extends ItemArmor {
@@ -72,5 +77,25 @@ public class ItemWoolenSuit extends ItemArmor {
     public int getItemBurnTime(ItemStack stack) {
         return 100;
     }
+
+    /*@Override
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        //player.getAttributeMap().applyAttributeModifiers(stack.getAttributeModifiers((stack.getItem()).getEquipmentSlot(stack)));
+        EntityEquipmentSlot slot = stack.getItem().getEquipmentSlot(stack);
+        Multimap<String, AttributeModifier> attributeModifiers = player.getItemStackFromSlot(slot).getAttributeModifiers(slot);
+        for (String key: attributeModifiers.keys()) {
+            if (key == ItemModifier.WARMTH.getName()) {
+                //System.out.println(slot.getName());
+                for (AttributeModifier attributeModifier: attributeModifiers.get(key)) {
+                    //player.getEntityAttribute(ItemModifier.WARMTH).applyModifier(attributeModifier);
+                    player.getAttributeMap().getAttributeInstance(ItemModifier.WARMTH).applyModifier(attributeModifier);
+                    //System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
+                }
+
+            }
+        }
+    }
+
+     */
 
 }

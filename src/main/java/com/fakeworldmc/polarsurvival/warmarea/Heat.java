@@ -3,6 +3,8 @@ package com.fakeworldmc.polarsurvival.warmarea;
 import com.fakeworldmc.polarsurvival.init.ItemModifier;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
@@ -10,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
 import java.util.Collection;
+import java.util.Set;
 
 public class Heat {
 
@@ -17,7 +20,13 @@ public class Heat {
     /** The decreasing speed of the player's heat level, depends on the player's armors. */
     private int speed;
     private EntityPlayer player;
+    private final int HIGHEST_HEAT_LEVEL = 20;
 
+    /**
+     * How many ticks is equal to a second.
+     * It should be 20, but I don't know why sometimes it's not.
+     */
+    public static final int TICKS_PER_SECOND = 39;
     /**
      * When something's burning in the backpack furnace, player's heat level will
      * increase by 1 per ADD_HEAT_LEVEL_SPEED_WHEN_BUTNING tick(s).
@@ -31,8 +40,8 @@ public class Heat {
     }
 
     public void add() {
-        if (heatLevel >= 20) {
-            heatLevel = 20;
+        if (heatLevel >= HIGHEST_HEAT_LEVEL) {
+            heatLevel = HIGHEST_HEAT_LEVEL;
             return;
         }
         heatLevel++;
@@ -47,8 +56,8 @@ public class Heat {
     }
 
     public Heat setHeatLevel(int heatLevel) {
-        if (heatLevel > 20) {
-            heatLevel = 20;
+        if (heatLevel > HIGHEST_HEAT_LEVEL) {
+            heatLevel = HIGHEST_HEAT_LEVEL;
         }
         this.heatLevel = heatLevel;
         return this;
@@ -60,14 +69,23 @@ public class Heat {
 
     public int getSpeed() {
 
+        if (player == null) throw new java.lang.NullPointerException();
+
         int difficulty = player.getEntityWorld().getDifficulty().getId();
-        speed = difficulty == 0 ? -1 : (int)(60 * 20 * 4 * BASE_SPEED / difficulty);
+        speed = difficulty == 0 ? -1 : (int)(60 * TICKS_PER_SECOND * BASE_SPEED / difficulty);
+        speed *= player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue();
+
+        return speed;
+
+    }
+
+    public Heat applyWarmthModifiers() {
+
         try {
-            //TODO onArmorTick ISpecialArmor?
             //player.getEntityAttribute(ItemModifier.WARMTH).removeAllModifiers();
             IAttributeInstance attribute = player.getEntityAttribute(ItemModifier.WARMTH);
             Collection<AttributeModifier> collection = attribute.getModifiers();
-            for (AttributeModifier attributemodifier: Lists.newArrayList(collection)) {
+            for (AttributeModifier attributemodifier : Lists.newArrayList(collection)) {
                 attribute.removeModifier(attributemodifier);
             }
 
@@ -85,16 +103,12 @@ public class Heat {
 
                     }
                 }
-
                  */
-
             }
 
-            speed *= player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue();
-            //System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
         } catch (NullPointerException | IllegalArgumentException ignored) {}
 
-        return speed;
+        return this;
     }
 
 }
