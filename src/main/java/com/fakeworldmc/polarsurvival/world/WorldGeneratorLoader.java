@@ -1,6 +1,5 @@
 package com.fakeworldmc.polarsurvival.world;
 
-import com.fakeworldmc.polarsurvival.world.WorldGeneratorCoalOre;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,12 +8,13 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class World {
+public class WorldGeneratorLoader {
+
     private static final WorldGenerator WORLD_GENERATOR_COAL_ORE = new WorldGeneratorCoalOre();
 
     private BlockPos position;
 
-    public World() {
+    public WorldGeneratorLoader() {
         MinecraftForge.ORE_GEN_BUS.register(this);
         MinecraftForge.TERRAIN_GEN_BUS.register(this);
     }

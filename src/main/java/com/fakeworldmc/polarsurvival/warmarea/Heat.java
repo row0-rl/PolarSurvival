@@ -2,6 +2,7 @@ package com.fakeworldmc.polarsurvival.warmarea;
 
 import com.fakeworldmc.polarsurvival.init.ItemModifier;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
@@ -17,6 +18,11 @@ public class Heat {
     private int speed;
     private EntityPlayer player;
 
+    /**
+     * When something's burning in the backpack furnace, player's heat level will
+     * increase by 1 per ADD_HEAT_LEVEL_SPEED_WHEN_BUTNING tick(s).
+     */
+    public static final int ADD_HEAT_LEVEL_SPEED_WHEN_BURNING = 100;
     public static final double BASE_SPEED = 1.0D;
 
     public Heat(EntityPlayer player, int heatLevel) {
@@ -70,20 +76,23 @@ public class Heat {
                 /*Multimap<String, AttributeModifier> attributeModifiers = player.getItemStackFromSlot(slot).getAttributeModifiers(slot);
                 for (String key: attributeModifiers.keys()) {
                     if (key == ItemModifier.WARMTH.getName()) {
-                        System.out.println(slot.getName());
+                        //System.out.println(slot.getName());
                         for (AttributeModifier attributeModifier: attributeModifiers.get(key)) {
-                            player.getEntityAttribute(ItemModifier.WARMTH).applyModifier(attributeModifier);
-                            System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
+                            //player.getEntityAttribute(ItemModifier.WARMTH).applyModifier(attributeModifier);
+                            player.getAttributeMap().getAttributeInstance(ItemModifier.WARMTH).applyModifier(attributeModifier);
+                            //System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
                         }
 
                     }
                 }
+
                  */
+
             }
 
             speed *= player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue();
             //System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException | IllegalArgumentException ignored) {}
 
         return speed;
     }
