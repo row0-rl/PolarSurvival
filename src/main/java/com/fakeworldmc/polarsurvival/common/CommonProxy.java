@@ -18,6 +18,8 @@ public class CommonProxy {
         new WorldGeneratorLoader();
         new GuiHandler();
         new Network();
+        new WarmArea();
+
     }
 
     public void postInit(FMLPostInitializationEvent event) {

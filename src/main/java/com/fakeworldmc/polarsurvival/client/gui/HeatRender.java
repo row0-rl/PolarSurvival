@@ -18,6 +18,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class HeatRender {
 
+    public static int heatLevel;
+
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(PolarSurvival.MODID +
                     ":textures/gui/heat.png");
@@ -34,17 +36,17 @@ public class HeatRender {
         EntityPlayer player = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
 
         if (player != null && player.isInsideOfMaterial(Material.WATER)) {
-            draw(event.getResolution(), WarmArea.heat.getHeatLevel(), true);
+            draw(event.getResolution(), true);
             Minecraft.getMinecraft().renderEngine.bindTexture(Gui.ICONS);
             return;
         }
 
-        draw(event.getResolution(), WarmArea.heat.getHeatLevel(), false);
+        draw(event.getResolution(), false);
         Minecraft.getMinecraft().renderEngine.bindTexture(Gui.ICONS);
 
     }
 
-    private static void draw(ScaledResolution scaledResolution, int level, boolean isInsideOfWater) {
+    private static void draw(ScaledResolution scaledResolution, boolean isInsideOfWater) {
 
         int yAmount = isInsideOfWater ? 60 : 51;
 
@@ -56,11 +58,11 @@ public class HeatRender {
         int width = scaledResolution.getScaledWidth() / 2;
         int height = scaledResolution.getScaledHeight();
 
-        for (; i < level / 2; i++) {
+        for (; i < heatLevel / 2; i++) {
             Minecraft.getMinecraft().ingameGUI.drawTexturedModalRect(width + 9 + 8 * i, height - yAmount, 0, 0, 9, 10);
         }
 
-        if (level % 2 == 1) {
+        if (heatLevel % 2 == 1) {
             Minecraft.getMinecraft().ingameGUI.drawTexturedModalRect(width + 9 + 8 * i, height - yAmount, 9, 0, 9, 10);
         }
 

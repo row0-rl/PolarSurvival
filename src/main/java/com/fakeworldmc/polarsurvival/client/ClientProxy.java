@@ -22,8 +22,6 @@ public class ClientProxy extends CommonProxy {
         super.init(event);
         new HeatRender();
         new Keys();
-        new WarmArea();
-
     }
 
     @Override

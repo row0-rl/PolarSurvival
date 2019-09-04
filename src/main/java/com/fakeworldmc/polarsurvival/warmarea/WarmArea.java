@@ -1,8 +1,11 @@
 package com.fakeworldmc.polarsurvival.warmarea;
 
 import com.fakeworldmc.polarsurvival.init.ItemModifier;
+import com.fakeworldmc.polarsurvival.init.Network;
+import com.fakeworldmc.polarsurvival.network.MessageHeatLevel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,7 +22,7 @@ public class WarmArea {
 
     public static Heat heat = new Heat(null, 8);
 
-    protected static final DamageSource FREEZE =
+    public static final DamageSource FREEZE =
             new DamageSource("freeze").setDifficultyScaled()
                     .setDamageBypassesArmor().setDamageIsAbsolute();
 
@@ -30,7 +33,12 @@ public class WarmArea {
     @SubscribeEvent
     public static void checkIsPlayerInWarmArea(TickEvent.PlayerTickEvent event) {
 
+        if (event.player.getEntityWorld().isRemote) return;
         if (event.player.capabilities.isCreativeMode) return;
+
+        MessageHeatLevel messageHeatLevel = new MessageHeatLevel(heat.getHeatLevel());
+        Network.instance.sendTo(messageHeatLevel, (EntityPlayerMP) event.player);
+
         if (event.player.isDead) {
             heat.setHeatLevel(8);
             return;
@@ -40,7 +48,7 @@ public class WarmArea {
         heat = new Heat(event.player, heat.getHeatLevel()).applyWarmthModifiers();
         int speed = heat.getSpeed();
         if (speed == -1) return;
-        System.out.println("HeatLevel: "+ WarmArea.heat.getHeatLevel() + "   Player: " + event.player.getName());
+        //System.out.println("HeatLevel: "+ heat.getHeatLevel() + "   Player: " + event.player.getName());
 
         /** Add the heat level. */
         if (source.level > heat.getHeatLevel()) {
@@ -72,9 +80,10 @@ public class WarmArea {
             dropTimer = 0;
             freezeTimer++;
             //System.out.println("AttackTimer: "+attackTimer);
-            if (freezeTimer >= 1 * Heat.TICKS_PER_SECOND) {
+            if (freezeTimer >= 2 * Heat.TICKS_PER_SECOND) {
                 freezeTimer = 0;
-                event.player.attackEntityFrom(FREEZE, 1);
+                //Network.instance.sendToServer(new MessageFreezePlayer());
+                event.player.attackEntityFrom(WarmArea.FREEZE, 1);
             }
         }
 

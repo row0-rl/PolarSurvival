@@ -81,7 +81,7 @@ public class Heat {
 
     public Heat applyWarmthModifiers() {
 
-        try {
+        //try {
             //player.getEntityAttribute(ItemModifier.WARMTH).removeAllModifiers();
             IAttributeInstance attribute = player.getEntityAttribute(ItemModifier.WARMTH);
             Collection<AttributeModifier> collection = attribute.getModifiers();
@@ -89,24 +89,22 @@ public class Heat {
                 attribute.removeModifier(attributemodifier);
             }
 
-            for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
-                player.getAttributeMap().applyAttributeModifiers(player.getItemStackFromSlot(slot).getAttributeModifiers(slot));
-                /*Multimap<String, AttributeModifier> attributeModifiers = player.getItemStackFromSlot(slot).getAttributeModifiers(slot);
-                for (String key: attributeModifiers.keys()) {
-                    if (key == ItemModifier.WARMTH.getName()) {
-                        //System.out.println(slot.getName());
-                        for (AttributeModifier attributeModifier: attributeModifiers.get(key)) {
-                            //player.getEntityAttribute(ItemModifier.WARMTH).applyModifier(attributeModifier);
-                            player.getAttributeMap().getAttributeInstance(ItemModifier.WARMTH).applyModifier(attributeModifier);
+            for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
+                //player.getAttributeMap().applyAttributeModifiers(player.getItemStackFromSlot(slot).getAttributeModifiers(slot));
+                Multimap<String, AttributeModifier> attributeModifiers = player.getItemStackFromSlot(slot).getAttributeModifiers(slot);
+                for (String key : attributeModifiers.keys()) {
+                    if (key.equals(ItemModifier.WARMTH.getName())) {
+                        for (AttributeModifier attributeModifier : attributeModifiers.get(key)) {
+                            player.getEntityAttribute(ItemModifier.WARMTH).applyModifier(attributeModifier);
                             //System.out.println(player.getEntityAttribute(ItemModifier.WARMTH).getAttributeValue());
                         }
 
                     }
                 }
-                 */
+
             }
 
-        } catch (NullPointerException | IllegalArgumentException ignored) {}
+        //} catch (NullPointerException | IllegalArgumentException ignored) {}
 
         return this;
     }
