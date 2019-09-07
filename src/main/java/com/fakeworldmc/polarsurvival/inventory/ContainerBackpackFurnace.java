@@ -130,7 +130,7 @@ public class ContainerBackpackFurnace extends Container {
 
     }
 
-    @Override
+    /*@Override
     public void detectAndSendChanges() {
 
         super.detectAndSendChanges();
@@ -154,7 +154,7 @@ public class ContainerBackpackFurnace extends Container {
             burnTimer++;
 
             if (burnTimer % Heat.ADD_HEAT_LEVEL_SPEED_WHEN_BURNING == 0) {
-                WarmArea.heat.add();
+                //WarmArea.heat.add();
             }
             if (burnTimer >= totalBurnTime) {
                 isBurning = false;
@@ -163,5 +163,7 @@ public class ContainerBackpackFurnace extends Container {
         }
 
     }
+
+     */
 
 }

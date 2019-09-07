@@ -19,7 +19,6 @@ public class CommonProxy {
         new GuiHandler();
         new Network();
         new WarmArea();
-
     }
 
     public void postInit(FMLPostInitializationEvent event) {

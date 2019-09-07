@@ -14,13 +14,16 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.HashMap;
+
 public class WarmArea {
 
     private static int addTimer = 0,
             dropTimer = 0,
             freezeTimer = 0;
 
-    public static Heat heat = new Heat(null, 8);
+    //public static Heat heat = new Heat(null, 8);
+    public static HashMap<EntityPlayer, Heat> heatOfEachPlayer = new HashMap<>();
 
     public static final DamageSource FREEZE =
             new DamageSource("freeze").setDifficultyScaled()
@@ -36,18 +39,22 @@ public class WarmArea {
         if (event.player.getEntityWorld().isRemote) return;
         if (event.player.capabilities.isCreativeMode) return;
 
+        if (!heatOfEachPlayer.containsKey(event.player)) heatOfEachPlayer.put(event.player, new Heat(8));
+
+        HeatSource source = isEntityInWarmArea(event.player);
+        Heat heat = heatOfEachPlayer.get(event.player).applyWarmthModifiers(event.player);
+
         MessageHeatLevel messageHeatLevel = new MessageHeatLevel(heat.getHeatLevel());
         Network.instance.sendTo(messageHeatLevel, (EntityPlayerMP) event.player);
+
+        int speed = heat.getSpeed(event.player);
+        if (speed == -1) return;
 
         if (event.player.isDead) {
             heat.setHeatLevel(8);
             return;
         }
 
-        HeatSource source = isEntityInWarmArea(event.player);
-        heat = new Heat(event.player, heat.getHeatLevel()).applyWarmthModifiers();
-        int speed = heat.getSpeed();
-        if (speed == -1) return;
         //System.out.println("HeatLevel: "+ heat.getHeatLevel() + "   Player: " + event.player.getName());
 
         /** Add the heat level. */

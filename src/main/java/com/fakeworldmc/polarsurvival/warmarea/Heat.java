@@ -3,28 +3,23 @@ package com.fakeworldmc.polarsurvival.warmarea;
 import com.fakeworldmc.polarsurvival.init.ItemModifier;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
 import java.util.Collection;
-import java.util.Set;
 
 public class Heat {
 
     private int heatLevel;
     /** The decreasing speed of the player's heat level, depends on the player's armors. */
     private int speed;
-    private EntityPlayer player;
     private final int HIGHEST_HEAT_LEVEL = 20;
 
     /**
      * How many ticks is equal to a second.
-     * It should be 20, but I don't know why sometimes it's not.
+     * It should be 20, but I don't know why it's not.
      */
     public static final int TICKS_PER_SECOND = 39;
     /**
@@ -34,8 +29,7 @@ public class Heat {
     public static final int ADD_HEAT_LEVEL_SPEED_WHEN_BURNING = 100;
     public static final double BASE_SPEED = 1.0D;
 
-    public Heat(EntityPlayer player, int heatLevel) {
-        this.player = player;
+    public Heat(int heatLevel) {
         setHeatLevel(heatLevel);
     }
 
@@ -67,7 +61,7 @@ public class Heat {
         return heatLevel;
     }
 
-    public int getSpeed() {
+    public int getSpeed(EntityPlayer player) {
 
         if (player == null) throw new java.lang.NullPointerException();
 
@@ -79,7 +73,7 @@ public class Heat {
 
     }
 
-    public Heat applyWarmthModifiers() {
+    public Heat applyWarmthModifiers(EntityPlayer player) {
 
         //try {
             //player.getEntityAttribute(ItemModifier.WARMTH).removeAllModifiers();
